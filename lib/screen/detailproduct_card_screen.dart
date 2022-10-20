@@ -1,131 +1,283 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:fruits/controller/change_fonts_controller.dart';
+import 'package:fruits/controller/product_controller.dart';
 import 'package:fruits/model/fruit_model.dart';
+import 'package:fruits/screen/shopping_card_screen.dart';
+import 'package:get/get.dart';
+
+ProductGetXController productGetXController = Get.put(ProductGetXController());
+FontsController fontsController = Get.find();
 
 class DetailProductCardScreen extends StatelessWidget {
-  DetailProductCardScreen({super.key, required this.fruitModel});
+  DetailProductCardScreen(
+      {super.key, required this.fruitModel, required this.nextScreen});
   FruitModel fruitModel;
+  bool nextScreen = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('About Procuct')),
+      appBar: AppBar(
+        title: Text(
+          'About Product',
+          style: TextStyle(
+              fontSize: 27,
+              fontFamily: fontsController.fontData,
+              fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          nextScreen
+              ? GetBuilder<ProductGetXController>(
+                  init: productGetXController,
+                  builder: (context) {
+                    return Badge(
+                      position: const BadgePosition(
+                        top: 0,
+                        end: 2,
+                      ),
+                      badgeContent: Text(
+                        productGetXController.list.length.toString(),
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      animationDuration: const Duration(milliseconds: 3000),
+                      toAnimate: true,
+                      animationType: BadgeAnimationType.slide,
+                      child: IconButton(
+                        onPressed: () {
+                          Get.to(() => const ShoppingCardScreen());
+                        },
+                        icon: const Icon(
+                          Icons.shopping_cart,
+                          size: 34,
+                        ),
+                      ),
+                    );
+                  })
+              : const SizedBox(),
+          const SizedBox(
+            width: 40,
+          ),
+        ],
+      ),
       body: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
             child: Hero(
-              tag: 'subscreen',
-              child: Container(
-                  height: 300,
-                  width: 300,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(width: 10, color: Colors.blueGrey),
-                      image: DecorationImage(
+              tag: 'showDetail${fruitModel.code}',
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 320,
+                    width: double.infinity,
+                    child: Image(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                            'assets/background_image/${fruitModel.backgroundImages}')),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 30,
+                    right: 30,
+                    top: 10,
+                    child: Container(
+                      height: 300,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(width: 10, color: Colors.blueGrey),
+                        image: DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(
-                              'assets/images/${fruitModel.fruitImage}')))),
+                              'assets/images/${fruitModel.fruitImage}'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
             height: 40,
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 8, bottom: 1),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, bottom: 1),
             child: Text(
-              'Product Name',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              fruitModel.name,
+              style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: fontsController.fontData),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               '${fruitModel.weight} g',
-              style: TextStyle(fontSize: 18),
+              style:
+                  TextStyle(fontSize: 18, fontFamily: fontsController.fontData),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                margin: const EdgeInsets.all(8),
-                height: 50,
-                width: 200,
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 178, 172, 172),
-                    borderRadius: BorderRadius.circular(30)),
-                child: Row(
+          GetBuilder<ProductGetXController>(
+              init: productGetXController,
+              builder: (context) {
+                return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FloatingActionButton(
-                      backgroundColor: const Color.fromARGB(255, 178, 172, 172),
-                      onPressed: () {},
-                      child: const Icon(Icons.remove),
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      height: 50,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 178, 172, 172),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          FloatingActionButton(
+                            backgroundColor:
+                                const Color.fromARGB(255, 178, 172, 172),
+                            onPressed: () async {
+                              productGetXController.decrementQty(fruitModel);
+                            },
+                            heroTag: 'decrement',
+                            child: const Icon(Icons.remove),
+                          ),
+                          productGetXController.list.isEmpty
+                              ? Text(
+                                  '0',
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: fontsController.fontData),
+                                )
+                              : productGetXController.list.every((element) =>
+                                      element.code != fruitModel.code)
+                                  ? Text(
+                                      '0',
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: fontsController.fontData),
+                                    )
+                                  : Text(
+                                      context
+                                          .list[productGetXController.list
+                                              .indexWhere((element) =>
+                                                  element.code ==
+                                                  fruitModel.code)]
+                                          .qty
+                                          .toString(),
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: fontsController.fontData),
+                                    ),
+                          FloatingActionButton(
+                            heroTag: 'increment',
+                            backgroundColor:
+                                const Color.fromARGB(255, 178, 172, 172),
+                            onPressed: () async {
+                              productGetXController.incrementQty(fruitModel);
+                            },
+                            child: const Icon(Icons.add),
+                          ),
+                        ],
+                      ),
                     ),
-                    const Text(
-                      '1',
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            '${fruitModel.price}\$/kg',
+                            style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: fontsController.fontData),
+                          ),
+                          productGetXController.list.isEmpty
+                              ? Text(
+                                  '${fruitModel.total().toStringAsFixed(2)} \$',
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: fontsController.fontData),
+                                )
+                              : productGetXController.list.every((element) =>
+                                      element.code != fruitModel.code)
+                                  ? Text(
+                                      '${fruitModel.total().toStringAsFixed(2)} \$',
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: fontsController.fontData),
+                                    )
+                                  : Text(
+                                      '${context.list[productGetXController.list.indexWhere((element) => element.code == fruitModel.code)].total().toStringAsFixed(2)} \$',
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: fontsController.fontData),
+                                    ),
+                        ],
+                      ),
                     ),
-                    FloatingActionButton(
-                      backgroundColor: const Color.fromARGB(255, 178, 172, 172),
-                      onPressed: () {},
-                      child: const Icon(Icons.add),
-                    )
                   ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  '${fruitModel.price}\$/Kg',
-                  style: const TextStyle(
-                      fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+                );
+              }),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(
               'About the Product',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: fontsController.fontData),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               fruitModel.description,
-              style: const TextStyle(
-                fontSize: 20,
-              ),
+              style:
+                  TextStyle(fontSize: 20, fontFamily: fontsController.fontData),
             ),
-          )
+          ),
         ],
       ),
       floatingActionButton:
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 207, 204, 204),
+          backgroundColor: const Color.fromARGB(255, 207, 204, 204),
           onPressed: () {},
+          heroTag: 'fav',
           child: const Icon(
             Icons.favorite,
             color: Colors.red,
             size: 30,
           ),
         ),
-        Container(
-          height: 50,
-          width: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.blue,
-          ),
-          child: const Center(
-            child: Text(
-              'Add to Card',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        InkWell(
+          onTap: () {
+            productGetXController.addProductCard(fruitModel);
+          },
+          child: Container(
+            height: 50,
+            width: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.blue,
+            ),
+            child: Center(
+              child: Text(
+                'Add to Card',
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: fontsController.fontData),
+              ),
             ),
           ),
         ),
