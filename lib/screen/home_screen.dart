@@ -23,77 +23,79 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   ProductGetXController productGetXController =
       Get.put(ProductGetXController());
-  FontsController fontsController = Get.find();
+  FontsController fontsController = Get.put(FontsController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<FontsController>(builder: (context) {
-      return Scaffold(
-        drawer: UserProfile(user: listUserInfo[0]),
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                fontFamily: fontsController.fontData),
-          ),
-        ),
-        body: GetBuilder<ProductGetXController>(builder: (context) {
-          return ListView.builder(
-            itemCount: getListData.length,
-            itemBuilder: ((context, index) {
-              return Slidable(
-                key: const ValueKey(0),
-                endActionPane: ActionPane(
-                  motion: const ScrollMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed: (value) async {
-                        productGetXController
-                            .addProductCard(getListData[index]);
-                      },
-                      backgroundColor: const Color(0xFF21B7CA),
-                      foregroundColor: Colors.white,
-                      icon: Icons.add_shopping_cart,
-                      label: 'Add',
+    return GetBuilder<FontsController>(
+        init: fontsController,
+        builder: (context) {
+          return Scaffold(
+            drawer: UserProfile(user: listUserInfo[0]),
+            appBar: AppBar(
+              title: Text(
+                widget.title,
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: fontsController.fontData),
+              ),
+            ),
+            body: GetBuilder<ProductGetXController>(builder: (context) {
+              return ListView.builder(
+                itemCount: getListData.length,
+                itemBuilder: ((context, index) {
+                  return Slidable(
+                    key: const ValueKey(0),
+                    endActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (value) async {
+                            productGetXController
+                                .addProductCard(getListData[index]);
+                          },
+                          backgroundColor: const Color(0xFF21B7CA),
+                          foregroundColor: Colors.white,
+                          icon: Icons.add_shopping_cart,
+                          label: 'Add',
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: productCardWidget(getListData[index]),
+                    child: productCardWidget(getListData[index]),
+                  );
+                }),
               );
             }),
+            floatingActionButton: GetBuilder<ProductGetXController>(
+                init: productGetXController,
+                builder: (context) {
+                  return productGetXController.list.isEmpty
+                      ? const SizedBox()
+                      : Badge(
+                          position: const BadgePosition(
+                            top: 0,
+                            end: 2,
+                          ),
+                          badgeContent: Text(
+                            productGetXController.list.length.toString(),
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          animationDuration: const Duration(milliseconds: 3000),
+                          toAnimate: true,
+                          animationType: BadgeAnimationType.slide,
+                          child: IconButton(
+                            onPressed: () {
+                              Get.to(() => const ShoppingCardScreen());
+                            },
+                            icon: const Icon(
+                              Icons.shopping_cart,
+                              size: 40,
+                            ),
+                          ),
+                        );
+                }),
           );
-        }),
-        floatingActionButton: GetBuilder<ProductGetXController>(
-            init: productGetXController,
-            builder: (context) {
-              return productGetXController.list.isEmpty
-                  ? const SizedBox()
-                  : Badge(
-                      position: const BadgePosition(
-                        top: 0,
-                        end: 2,
-                      ),
-                      badgeContent: Text(
-                        productGetXController.list.length.toString(),
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      animationDuration: const Duration(milliseconds: 3000),
-                      toAnimate: true,
-                      animationType: BadgeAnimationType.slide,
-                      child: IconButton(
-                        onPressed: () {
-                          Get.to(() => const ShoppingCardScreen());
-                        },
-                        icon: const Icon(
-                          Icons.shopping_cart,
-                          size: 40,
-                        ),
-                      ),
-                    );
-            }),
-      );
-    });
+        });
   }
 
   Widget productCardWidget(FruitModel fruitModel) {

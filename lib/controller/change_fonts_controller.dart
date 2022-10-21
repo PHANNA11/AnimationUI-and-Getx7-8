@@ -8,6 +8,7 @@ class FontsController extends GetxController {
   initFonts() async {
     final prefs = await SharedPreferences.getInstance();
     fontData = prefs.getString('fonts') ?? 'BungreeShade'.obs();
+    update();
   }
 
   List? fontDataList = [
@@ -35,7 +36,6 @@ class FontsController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     fontData = fontDataList![fontIndex];
     await prefs.setString('fonts', fontData!);
-
     update();
   }
 }

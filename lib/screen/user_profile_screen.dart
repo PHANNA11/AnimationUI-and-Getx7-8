@@ -43,8 +43,8 @@ class UserProfile extends StatelessWidget {
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image:
-                                            NetworkImage(user.imageProfile))),
+                                        image: AssetImage(
+                                            'assets/profile_pic/${user.imageProfile}'))),
                               ),
                             ),
                             Expanded(
@@ -58,11 +58,12 @@ class UserProfile extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         fontFamily: fontsController.fontData),
                                   ),
-                                  const Text(
+                                  Text(
                                     '@pha_phanna',
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: fontsController.fontData),
                                   ),
                                 ],
                               ),

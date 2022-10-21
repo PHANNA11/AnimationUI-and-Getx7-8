@@ -45,7 +45,8 @@ class AboutScreen extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
-                                      image: NetworkImage(user.imageProfile))),
+                                      image: AssetImage(
+                                          'assets/profile_pic/${user.imageProfile}'))),
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -85,27 +86,23 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ),
                 SocialWidget(
-                  urlLogo:
-                      'https://imgs.search.brave.com/EhSx0xOHBz409rYZlGKmRfkWw7qJr27_aa5GqJ_tDyc/rs:fit:640:640:1/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vNzM2/eC8xOS9mNi9iZi8x/OWY2YmY4ZmM2NzZj/YzFhMjQ2YmNiMDg2/YjJhZDY4YS5qcGc',
+                  urlLogo: 'fb.png',
                   logoName: 'Facebook',
                   link: 'https://www.facebook.com/alton.kh.9',
                 ),
                 SocialWidget(
-                  urlLogo:
-                      'https://imgs.search.brave.com/7ulQhDe-3Xal-c1RuURahETWpqbDpRRV1HkcyipG0Mw/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly8xMDAw/bG9nb3MubmV0L3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDE3LzA1/L05ldy1Zb3VUdWJl/LWxvZ28uanBn',
+                  urlLogo: 'youtube.png',
                   logoName: 'Youtube',
                   link:
                       'https://studio.youtube.com/channel/UC9PsVMffpxfe8xlZ71tyObg',
                 ),
                 SocialWidget(
-                  urlLogo:
-                      'https://imgs.search.brave.com/0dJYYcYebPERhhwzTXoiabkbzUw-CsdHtFMDSEKbtxs/rs:fit:844:225:1/g:ce/aHR0cHM6Ly90c2Ux/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5x/Y2paY2w4WVFqUU1h/QzJKQlNUYmpnSGFF/SyZwaWQ9QXBp',
+                  urlLogo: 'telegram.png',
                   logoName: 'Telegram',
                   link: 'https://t.me/pha_phanna',
                 ),
                 SocialWidget(
-                  urlLogo:
-                      'https://imgs.search.brave.com/M57dBjKsHVz-QLczOADoGopJrrKjCo0Y7zSq0k_AXAc/rs:fit:838:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5S/RzJQS05aelRLUW1C/ZzNvc1E0eld3SGFF/TSZwaWQ9QXBp',
+                  urlLogo: 'github.png',
                   logoName: 'Github',
                   link: 'https://github.com/PHANNA11/',
                 ),

@@ -34,7 +34,7 @@ class SocialWidget extends StatelessWidget {
                   height: 80,
                   width: 80,
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(urlLogo),
+                    backgroundImage: AssetImage('assets/socialPic/$urlLogo'),
                   ),
                 ),
               ),
@@ -43,7 +43,7 @@ class SocialWidget extends StatelessWidget {
                 child: Text(
                   logoName,
                   style: TextStyle(
-                      fontSize: 34,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold,
                       fontFamily: controller.fontData),
                 ),

@@ -40,5 +40,8 @@ class ProductGetXController extends GetxController {
     update();
   }
 
-  delteProductCard() {}
+  delteProductCard(FruitModel fruitModel) {
+    list.removeWhere((element) => element.code == fruitModel.code);
+    update();
+  }
 }

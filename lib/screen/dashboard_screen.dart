@@ -101,25 +101,44 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     fontFamily: fontsController.fontData),
               ),
             ),
-            Center(
-              child: Expanded(
-                flex: 1,
-                child: ImageSlideshow(
-                  initialPage: 0,
-                  isLoop: true,
-                  autoPlayInterval: 3500,
-                  width: 300,
-                  height: 160,
-                  children: List.generate(
-                    listTopsell.length,
-                    (index) => Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(listTopsell[index]['image']))),
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    ImageSlideshow(
+                      initialPage: 0,
+                      isLoop: true,
+                      autoPlayInterval: 3500,
+                      //width: 300,
+                      height: 190,
+                      children: List.generate(
+                        listTopsell.length,
+                        (index) => Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image:
+                                      AssetImage(listTopsell[index]['image']))),
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                        child: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        //color: Colors.red,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/top_sell.jpeg'),
+                        ),
+                      ),
+                    )),
+                  ],
                 ),
               ),
             ),
@@ -127,10 +146,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     child: Text(
                       'Sell Chart',
                       style: TextStyle(
@@ -140,7 +159,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 300,
+                    height: 260,
                     child: PieChart(
                       swapAnimationDuration: const Duration(seconds: 2),
                       PieChartData(
@@ -180,32 +199,35 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             const SizedBox(
               height: 30,
             ),
-            SizedBox(
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(listDataChart.length, (index) {
-                  return Column(children: [
-                    Container(
-                      height: 40,
-                      width: 40,
-                      color: listDataChart[index]['color'],
-                    ),
-                    Text(
-                      listDataChart[index]['name'],
-                      style: TextStyle(fontFamily: fontsController.fontData),
-                    ),
-                    Text(
-                      listDataChart[index]['number'].toString(),
-                      style: TextStyle(fontFamily: fontsController.fontData),
-                    ),
-                  ]);
-                }),
+            Expanded(
+              flex: 1,
+              child: SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: List.generate(listDataChart.length, (index) {
+                    return Column(children: [
+                      Container(
+                        height: 40,
+                        width: 40,
+                        color: listDataChart[index]['color'],
+                      ),
+                      Text(
+                        listDataChart[index]['name'],
+                        style: TextStyle(fontFamily: fontsController.fontData),
+                      ),
+                      Text(
+                        listDataChart[index]['number'].toString(),
+                        style: TextStyle(fontFamily: fontsController.fontData),
+                      ),
+                    ]);
+                  }),
+                ),
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
           ],
         ),
       );

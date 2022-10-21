@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruits/controller/change_fonts_controller.dart';
 import 'package:fruits/controller/dark_mode_controller.dart';
 import 'package:fruits/model/fruit_model.dart';
 import 'package:fruits/screen/home_screen.dart';
@@ -13,6 +14,7 @@ void main() async {
 
 ThemeModeController themeModeController = Get.put(ThemeModeController());
 bool a = false;
+FontsController fontsController = Get.put(FontsController());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

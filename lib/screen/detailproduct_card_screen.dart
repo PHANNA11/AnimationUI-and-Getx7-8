@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fruits/controller/change_fonts_controller.dart';
 import 'package:fruits/controller/product_controller.dart';
 import 'package:fruits/model/fruit_model.dart';
@@ -140,7 +141,24 @@ class DetailProductCardScreen extends StatelessWidget {
                               backgroundColor:
                                   const Color.fromARGB(255, 178, 172, 172),
                               onPressed: () async {
-                                productGetXController.decrementQty(fruitModel);
+                                productGetXController
+                                            .list[productGetXController.list
+                                                .indexWhere((element) =>
+                                                    element.code ==
+                                                    fruitModel.code)]
+                                            .qty <=
+                                        0
+                                    ? Fluttertoast.showToast(
+                                        msg:
+                                            "Product order have 0 quintity..!!",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0)
+                                    : productGetXController
+                                        .decrementQty(fruitModel);
                               },
                               heroTag: 'decrement',
                               child: const Icon(Icons.remove),
@@ -255,7 +273,7 @@ class DetailProductCardScreen extends StatelessWidget {
         floatingActionButton:
             Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           FloatingActionButton(
-            backgroundColor: const Color.fromARGB(255, 207, 204, 204),
+            backgroundColor: const Color.fromARGB(255, 154, 151, 151),
             onPressed: () {},
             heroTag: 'fav',
             child: const Icon(

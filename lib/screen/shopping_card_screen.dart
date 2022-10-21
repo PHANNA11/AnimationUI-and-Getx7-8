@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fruits/controller/product_controller.dart';
 import 'package:fruits/model/fruit_model.dart';
 import 'package:fruits/model/order_model.dart';
@@ -23,74 +24,88 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<FontsController>(builder: (controler) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Your Shopping Card',
-            style: TextStyle(
-                fontSize: 28,
-                fontFamily: fontsController.fontData,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        body: GetBuilder<ProductGetXController>(
+      return GetBuilder<ProductGetXController>(
+          init: productGetXController,
           builder: (controller) {
-            return productGetXController.list.isEmpty
-                ? const Center(
-                    child: Icon(
-                      Icons.shopping_cart_sharp,
-                      size: 120,
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'Your Shopping Card',
+                  style: TextStyle(
+                      fontSize: 28,
+                      fontFamily: fontsController.fontData,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              body: productGetXController.list.isEmpty
+                  ? const Center(
+                      child: Icon(
+                        Icons.shopping_cart_sharp,
+                        size: 120,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: controller.list.length,
+                      itemBuilder: (context, index) {
+                        var pro = controller.list[index];
+                        return Slidable(
+                          key: const ValueKey(0),
+                          endActionPane: ActionPane(
+                            motion: const ScrollMotion(),
+                            children: [
+                              SlidableAction(
+                                onPressed: (value) async {
+                                  productGetXController.delteProductCard(pro);
+                                },
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
+                                icon: Icons.delete_forever_rounded,
+                                label: 'delete',
+                              ),
+                            ],
+                          ),
+                          child: productCardWidget(pro),
+                        );
+                      },
                     ),
-                  )
-                : ListView.builder(
-                    itemCount: controller.list.length,
-                    itemBuilder: (context, index) {
-                      var pro = controller.list[index];
-                      return productCardWidget(pro);
-                    },
-                  );
-          },
-        ),
-        bottomSheet: GetBuilder<ProductGetXController>(
-            init: productGetXController,
-            builder: (contexts) {
-              return Container(
+              bottomSheet: Container(
                 height: 120,
                 width: double.infinity,
-                color: Colors.blueAccent,
+                color: Theme.of(context).primaryColorLight,
                 child: Column(
                   children: [
                     Expanded(
                       child: Container(
                         height: 40,
                         width: double.infinity,
-                        color: Colors.blueAccent,
+                        //color: Colors.blueAccent,
                         child: Row(
                           children: [
-                            const SizedBox(
-                              width: 40,
-                            ),
                             Expanded(
                               flex: 1,
-                              child: Text(
-                                'Total',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: fontsController.fontData),
+                              child: Center(
+                                child: Text(
+                                  'Total',
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: fontsController.fontData),
+                                ),
                               ),
                             ),
                             Expanded(
                               flex: 1,
-                              child: Text(
-                                ':',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: fontsController.fontData),
+                              child: Center(
+                                child: Text(
+                                  ':',
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: fontsController.fontData),
+                                ),
                               ),
                             ),
-                            contexts.list.isEmpty
+                            controller.list.isEmpty
                                 ? Text(
                                     '0.0\$',
                                     style: TextStyle(
@@ -98,7 +113,7 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
                                         fontWeight: FontWeight.bold,
                                         fontFamily: fontsController.fontData),
                                   )
-                                : contexts.calculateGrandTotal() == null
+                                : controller.calculateGrandTotal() == null
                                     ? Text(
                                         '0.0\$',
                                         style: TextStyle(
@@ -109,7 +124,7 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
                                       )
                                     : Expanded(
                                         child: Text(
-                                          '${contexts.grandTotal.toString()}\$',
+                                          '${controller.grandTotal.toStringAsFixed(2)}\$',
                                           style: TextStyle(
                                               fontSize: 28,
                                               fontWeight: FontWeight.bold,
@@ -149,7 +164,7 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
                         child: Container(
                           height: 40,
                           width: double.infinity,
-                          color: Colors.blueAccent,
+                          //  color: Theme.of(context).primaryColorLight,
                           child: Center(
                             child: Text(
                               'Order',
@@ -164,9 +179,9 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
                     ),
                   ],
                 ),
-              );
-            }),
-      );
+              ),
+            );
+          });
     });
   }
 
