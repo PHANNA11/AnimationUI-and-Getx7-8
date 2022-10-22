@@ -21,7 +21,7 @@ class SettingScreen extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               title: Text(
-                'Settings',
+                'setting'.tr,
                 style: TextStyle(
                     fontSize: 28, fontFamily: fontsController.fontData),
               ),

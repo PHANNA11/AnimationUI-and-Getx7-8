@@ -17,7 +17,7 @@ class AboutScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'About Me',
+                'about_me'.tr,
                 style: TextStyle(
                     fontFamily: fontsController.fontData,
                     fontSize: 28,

@@ -42,7 +42,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Payment Order',
+            'payment_order'.tr,
             style:
                 TextStyle(fontSize: 28, fontFamily: fontsController.fontData),
           ),
@@ -77,7 +77,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 readOnly: true,
                 controller: totalController,
                 label: 'Total \$',
-                sHintext: 's'),
+                sHintext: ' '),
             TextFieldCard(
                 readOnly: true,
                 controller: currencyKHController,
@@ -91,7 +91,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     builder: (context) {
                       return AlertDialog(
                         title: Text(
-                          'select your card',
+                          'select_your_card'.tr,
                           style:
                               TextStyle(fontFamily: fontsController.fontData),
                         ),
@@ -140,7 +140,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     color: Colors.red,
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Center(
-                                  child: Text('cancel',
+                                  child: Text('cancel'.tr,
                                       style: TextStyle(
                                           fontFamily: fontsController.fontData,
                                           fontSize: 22)),
@@ -157,7 +157,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     color: Colors.blue,
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Center(
-                                  child: Text('ok',
+                                  child: Text('ok'.tr,
                                       style: TextStyle(
                                           fontFamily: fontsController.fontData,
                                           fontSize: 22)),
@@ -176,7 +176,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     width: 200,
                     child: Center(
                         child: Text(
-                      'Choose Credit Card',
+                      'choose_credit_card'.tr,
                       style: TextStyle(
                           fontSize: 20,
                           fontFamily: fontsController.fontData,
@@ -192,7 +192,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             color: Theme.of(context).primaryColorLight,
             child: Center(
               child: Text(
-                'Pay',
+                'pay'.tr,
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,

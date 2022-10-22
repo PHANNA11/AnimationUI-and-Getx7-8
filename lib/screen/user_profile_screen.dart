@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits/controller/change_fonts_controller.dart';
+import 'package:fruits/controller/change_local_language_controller.dart';
 
 import 'package:fruits/model/user_model.dart';
 import 'package:fruits/screen/about_screen.dart';
@@ -8,8 +9,11 @@ import 'package:fruits/screen/dashboard_screen.dart';
 import 'package:fruits/screen/flutter_communication_screen.dart';
 import 'package:fruits/screen/setting_screen.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 FontsController fontsController = Get.put(FontsController());
+SwitchLanguageController switchLanguageController =
+    Get.put(SwitchLanguageController());
 
 class UserProfile extends StatelessWidget {
   UserProfile({super.key, required this.user});
@@ -85,13 +89,13 @@ class UserProfile extends StatelessWidget {
                     return ListTile(
                       title: themeModeController.isDark
                           ? Text(
-                              'Dark Mode',
+                              'dark_mode'.tr,
                               style: TextStyle(
                                   fontSize: 22,
                                   fontFamily: fontsController.fontData),
                             )
                           : Text(
-                              'Light Mode',
+                              'light_mode'.tr,
                               style: TextStyle(
                                   fontSize: 22,
                                   fontFamily: fontsController.fontData),
@@ -101,6 +105,34 @@ class UserProfile extends StatelessWidget {
                           onChanged: themeModeController.changeTheme),
                     );
                   }),
+                  const Divider(),
+                  GetBuilder<SwitchLanguageController>(
+                      init: switchLanguageController,
+                      builder: (context) {
+                        return ListTile(
+                            leading: Text(
+                              'ភាសាខ្មែរ',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: fontsController.fontData),
+                            ),
+                            title: CupertinoSwitch(
+                                value: switchLanguageController.english,
+                                onChanged: (value) async {
+                                  var localeEng = const Locale('en', 'US');
+                                  var localeKh = const Locale('KH', 'KH');
+                                  switchLanguageController
+                                      .switchLanguage(value);
+                                  Get.updateLocale(
+                                      value ? localeEng : localeKh);
+                                }),
+                            trailing: Text(
+                              'English',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: fontsController.fontData),
+                            ));
+                      }),
                   const Divider(),
                   InkWell(
                     onTap: () {
@@ -119,7 +151,7 @@ class UserProfile extends StatelessWidget {
                     child: ListTile(
                       leading: const Icon(Icons.dashboard),
                       title: Text(
-                        'Dashboard',
+                        'dashboard'.tr,
                         style: TextStyle(
                             fontSize: 18, fontFamily: fontsController.fontData),
                       ),
@@ -128,6 +160,7 @@ class UserProfile extends StatelessWidget {
                   const Divider(),
                   InkWell(
                     onTap: () {
+                      //  Get.to(() => const SettingScreen());
                       Navigator.push(
                           context,
                           PageRouteBuilder(
@@ -141,9 +174,9 @@ class UserProfile extends StatelessWidget {
                           ));
                     },
                     child: ListTile(
-                      leading: Icon(Icons.settings),
+                      leading: const Icon(Icons.settings),
                       title: Text(
-                        'Settings',
+                        'setting'.tr,
                         style: TextStyle(
                             fontSize: 18, fontFamily: fontsController.fontData),
                       ),
@@ -168,7 +201,7 @@ class UserProfile extends StatelessWidget {
                     child: ListTile(
                       leading: Icon(Icons.public),
                       title: Text(
-                        'Community',
+                        'community'.tr,
                         style: TextStyle(
                             fontSize: 18, fontFamily: fontsController.fontData),
                       ),
@@ -190,9 +223,9 @@ class UserProfile extends StatelessWidget {
                           ));
                     },
                     child: ListTile(
-                      leading: Icon(Icons.account_box),
+                      leading: const Icon(Icons.account_box),
                       title: Text(
-                        'About',
+                        'about_me'.tr,
                         style: TextStyle(
                             fontSize: 18, fontFamily: fontsController.fontData),
                       ),

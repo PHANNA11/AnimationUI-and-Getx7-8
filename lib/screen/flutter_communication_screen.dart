@@ -16,7 +16,7 @@ class communicationScreen extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'FLutter',
+            'Flutter',
             style: TextStyle(
               fontFamily: fontsController.fontData,
               fontSize: 40,
@@ -28,7 +28,7 @@ class communicationScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                'FLutter Communication',
+                'Flutter Communication',
                 style: TextStyle(fontFamily: 'Bangers', fontSize: 35),
               ),
             ),

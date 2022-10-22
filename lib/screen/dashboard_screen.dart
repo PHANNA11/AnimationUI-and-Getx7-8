@@ -66,12 +66,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       'image': 'assets/images/papaya.png'
     }
   ];
-  int touchedIndex = 0;
+
   FontsController fontsController = Get.put(FontsController());
-  @override
-  void initState() {
-    // TODO: implement initState
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +76,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Dashboard',
+            'dashboard'.tr,
             style: TextStyle(
               fontFamily: fontsController.fontData,
               fontSize: 40,
@@ -94,7 +90,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                'Top sell',
+                'top_sell'.tr,
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -103,7 +99,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             ),
             Expanded(
               flex: 1,
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 child: Stack(
                   children: [
@@ -151,7 +147,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                      'Sell Chart',
+                      'sell_chart'.tr,
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -225,9 +221,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 ),
               ),
             ),
-            // const SizedBox(
-            //   height: 30,
-            // ),
           ],
         ),
       );

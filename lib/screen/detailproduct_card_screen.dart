@@ -21,7 +21,7 @@ class DetailProductCardScreen extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'About Product',
+            'about_product'.tr,
             style: TextStyle(
                 fontSize: 27,
                 fontFamily: fontsController.fontData,
@@ -149,8 +149,7 @@ class DetailProductCardScreen extends StatelessWidget {
                                             .qty <=
                                         0
                                     ? Fluttertoast.showToast(
-                                        msg:
-                                            "Product order have 0 quintity..!!",
+                                        msg: "product_not_have_qty".tr,
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 1,
@@ -253,7 +252,7 @@ class DetailProductCardScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'About the Product',
+                'about_product'.tr,
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -295,7 +294,7 @@ class DetailProductCardScreen extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'Add to Card',
+                  'add_to_card'.tr,
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

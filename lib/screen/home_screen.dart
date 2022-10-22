@@ -21,6 +21,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool lg = false;
   ProductGetXController productGetXController =
       Get.put(ProductGetXController());
   FontsController fontsController = Get.put(FontsController());
@@ -57,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           backgroundColor: const Color(0xFF21B7CA),
                           foregroundColor: Colors.white,
                           icon: Icons.add_shopping_cart,
-                          label: 'Add',
+                          label: 'add'.tr,
                         ),
                       ],
                     ),

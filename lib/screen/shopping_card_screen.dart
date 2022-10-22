@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fruits/controller/change_local_language_controller.dart';
 import 'package:fruits/controller/product_controller.dart';
 import 'package:fruits/model/fruit_model.dart';
 import 'package:fruits/model/order_model.dart';
@@ -30,7 +31,7 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'Your Shopping Card',
+                  'your_shopping_card'.tr,
                   style: TextStyle(
                       fontSize: 28,
                       fontFamily: fontsController.fontData,
@@ -75,7 +76,7 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
                 child: Column(
                   children: [
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         height: 40,
                         width: double.infinity,
                         //color: Colors.blueAccent,
@@ -85,7 +86,7 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
                               flex: 1,
                               child: Center(
                                 child: Text(
-                                  'Total',
+                                  'total'.tr,
                                   style: TextStyle(
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold,
@@ -167,7 +168,7 @@ class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
                           //  color: Theme.of(context).primaryColorLight,
                           child: Center(
                             child: Text(
-                              'Order',
+                              'order'.tr,
                               style: TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.bold,
