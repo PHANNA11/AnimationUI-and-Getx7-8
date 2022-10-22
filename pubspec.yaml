@@ -158,6 +158,12 @@ flutter:
       fonts:
         - asset: assets/fonts/Tangerine-Bold.ttf
         - asset: assets/fonts/Tangerine-Regular.ttf
+    - family: khmer400
+      fonts:
+        - asset: assets/fonts/Khmer 400.ttf
+    - family: KhmerOS_sys
+      fonts:
+        - asset: assets/fonts/KhmerOS_sys.ttf
 
       
   #       - asset: fonts/Schyler-Italic.ttf

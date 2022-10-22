@@ -7,11 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class FontsController extends GetxController {
   initFonts() async {
     final prefs = await SharedPreferences.getInstance();
-    fontData = prefs.getString('fonts') ?? 'BungreeShade'.obs();
+    fontData = prefs.getString('fonts') ?? 'KhmerOS_sys'.obs();
     update();
   }
 
   List? fontDataList = [
+    'khmer400',
+    'KhmerOS_sys',
     'PlayfairDisplay',
     'Bangers',
     'BungreeShade',
