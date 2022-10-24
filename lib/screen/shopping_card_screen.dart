@@ -24,166 +24,167 @@ class ShoppingCardScreen extends StatefulWidget {
 class _ShoppingCardScreenState extends State<ShoppingCardScreen> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<FontsController>(builder: (controler) {
-      return GetBuilder<ProductGetXController>(
-          init: productGetXController,
-          builder: (controller) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  'your_shopping_card'.tr,
-                  style: TextStyle(
-                      fontSize: 28,
-                      fontFamily: fontsController.fontData,
-                      fontWeight: FontWeight.bold),
-                ),
+    return GetBuilder<FontsController>(
+      init: fontsController,
+      builder: (controler) => GetBuilder<ProductGetXController>(
+        init: productGetXController,
+        builder: (controller) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'your_shopping_card'.tr,
+                style: TextStyle(
+                    fontSize: 28,
+                    fontFamily: fontsController.fontData,
+                    fontWeight: FontWeight.bold),
               ),
-              body: productGetXController.list.isEmpty
-                  ? const Center(
-                      child: Icon(
-                        Icons.shopping_cart_sharp,
-                        size: 120,
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: controller.list.length,
-                      itemBuilder: (context, index) {
-                        var pro = controller.list[index];
-                        return Slidable(
-                          key: const ValueKey(0),
-                          endActionPane: ActionPane(
-                            motion: const ScrollMotion(),
-                            children: [
-                              SlidableAction(
-                                onPressed: (value) async {
-                                  productGetXController.delteProductCard(pro);
-                                },
-                                backgroundColor: Colors.red,
-                                foregroundColor: Colors.white,
-                                icon: Icons.delete_forever_rounded,
-                                label: 'delete',
-                              ),
-                            ],
-                          ),
-                          child: productCardWidget(pro),
-                        );
-                      },
+            ),
+            body: productGetXController.list.isEmpty
+                ? const Center(
+                    child: Icon(
+                      Icons.shopping_cart_sharp,
+                      size: 120,
                     ),
-              bottomSheet: Container(
-                height: 120,
-                width: double.infinity,
-                color: Theme.of(context).primaryColorLight,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 40,
-                        width: double.infinity,
-                        //color: Colors.blueAccent,
-                        child: Row(
+                  )
+                : ListView.builder(
+                    itemCount: controller.list.length,
+                    itemBuilder: (context, index) {
+                      var pro = controller.list[index];
+                      return Slidable(
+                        key: const ValueKey(0),
+                        endActionPane: ActionPane(
+                          motion: const ScrollMotion(),
                           children: [
-                            Expanded(
-                              flex: 1,
-                              child: Center(
-                                child: Text(
-                                  'total'.tr,
+                            SlidableAction(
+                              onPressed: (value) async {
+                                await productGetXController
+                                    .deleteProductCard(pro);
+                              },
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                              icon: Icons.delete_forever_rounded,
+                              label: 'delete',
+                            ),
+                          ],
+                        ),
+                        child: productCardWidget(pro),
+                      );
+                    },
+                  ),
+            bottomSheet: Container(
+              height: 120,
+              width: double.infinity,
+              color: Theme.of(context).primaryColorLight,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 40,
+                      width: double.infinity,
+                      //color: Colors.blueAccent,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Text(
+                                'total'.tr,
+                                style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: fontsController.fontData),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Text(
+                                ':',
+                                style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: fontsController.fontData),
+                              ),
+                            ),
+                          ),
+                          controller.list.isEmpty
+                              ? Text(
+                                  '0.0\$',
                                   style: TextStyle(
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: fontsController.fontData),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Center(
-                                child: Text(
-                                  ':',
-                                  style: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: fontsController.fontData),
-                                ),
-                              ),
-                            ),
-                            controller.list.isEmpty
-                                ? Text(
-                                    '0.0\$',
+                                )
+                              // : controller.calculateGrandTotal() == 0.0
+                              //     ? Text(
+                              //         '0.0\$',
+                              //         style: TextStyle(
+                              //             fontSize: 28,
+                              //             fontWeight: FontWeight.bold,
+                              //             fontFamily: fontsController.fontData),
+                              //       )
+                              : Expanded(
+                                  child: Text(
+                                    '${controller.grandTotal.toStringAsFixed(2)}\$',
                                     style: TextStyle(
                                         fontSize: 28,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: fontsController.fontData),
-                                  )
-                                : controller.calculateGrandTotal() == null
-                                    ? Text(
-                                        '0.0\$',
-                                        style: TextStyle(
-                                            fontSize: 28,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily:
-                                                fontsController.fontData),
-                                      )
-                                    : Expanded(
-                                        child: Text(
-                                          '${controller.grandTotal.toStringAsFixed(2)}\$',
-                                          style: TextStyle(
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily:
-                                                  fontsController.fontData),
-                                        ),
-                                      ),
-                          ],
-                        ),
+                                  ),
+                                ),
+                        ],
                       ),
                     ),
-                    const Divider(
-                      height: 4,
-                      color: Colors.black,
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                transitionDuration:
-                                    const Duration(milliseconds: 600),
-                                pageBuilder: (context, animation, _) =>
-                                    FadeTransition(
-                                  opacity: animation,
-                                  child: PaymentScreen(
-                                      orderModel: OrderModel(
-                                          orderId: DateTime.now()
-                                              .millisecondsSinceEpoch,
-                                          user: listUserInfo[0],
-                                          listProduct:
-                                              productGetXController.list)),
+                  ),
+                  const Divider(
+                    height: 4,
+                    color: Colors.black,
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              transitionDuration:
+                                  const Duration(milliseconds: 600),
+                              pageBuilder: (context, animation, _) =>
+                                  FadeTransition(
+                                opacity: animation,
+                                child: PaymentScreen(
+                                  orderModel: OrderModel(
+                                      orderId:
+                                          DateTime.now().millisecondsSinceEpoch,
+                                      user: listUserInfo[0],
+                                      listProduct: productGetXController.list),
                                 ),
-                              ));
-                        },
-                        child: Container(
-                          height: 40,
-                          width: double.infinity,
-                          //  color: Theme.of(context).primaryColorLight,
-                          child: Center(
-                            child: Text(
-                              'order'.tr,
-                              style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: fontsController.fontData),
-                            ),
+                              ),
+                            ));
+                      },
+                      child: SizedBox(
+                        height: 40,
+                        width: double.infinity,
+                        //  color: Theme.of(context).primaryColorLight,
+                        child: Center(
+                          child: Text(
+                            'order'.tr,
+                            style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: fontsController.fontData),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          });
-    });
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget productCardWidget(FruitModel fruitModel) {

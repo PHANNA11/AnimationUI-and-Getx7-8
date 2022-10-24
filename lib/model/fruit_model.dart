@@ -71,7 +71,7 @@ List<FruitModel> getListData = [
       fruitImage: 'orange.png',
       backgroundImages: 'orange.png'),
   FruitModel(
-      code: 12398234567,
+      code: 123982345,
       name: 'Star Fruit',
       price: 2,
       qty: 1,
@@ -98,7 +98,7 @@ List<FruitModel> getListData = [
       fruitImage: 'star_fruit.png',
       backgroundImages: 'star_fruit.png'),
   FruitModel(
-      code: 12323744567,
+      code: 123244567,
       name: 'Fruit splash',
       qty: 1,
       price: 4,

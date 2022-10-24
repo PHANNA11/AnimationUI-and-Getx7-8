@@ -9,6 +9,7 @@ class ProductGetXController extends GetxController {
     if (list.isNotEmpty) {
       if (list.every((element) => element.code != fruitModel.code)) {
         list.add(fruitModel);
+        grandTotal += fruitModel.total();
       } else {
         list[list.indexWhere((element) => element.code == fruitModel.code)]
             .qty++;
@@ -16,32 +17,43 @@ class ProductGetXController extends GetxController {
     } else {
       list.add(fruitModel);
     }
+    calculateGrandTotal();
     update();
   }
 
   calculateGrandTotal() async {
     grandTotal = 0.0.obs();
-    for (var element in list) {
+    list.forEach((element) {
       grandTotal += element.total();
-    }
-    print('GrandTotal:$grandTotal');
+    });
     update();
   }
 
   incrementQty(FruitModel fruitModel) {
     list[list.indexWhere((element) => element.code == fruitModel.code)].qty++;
     list[list.indexWhere((element) => element.code == fruitModel.code)].total();
+    calculateGrandTotal();
     update();
   }
 
   decrementQty(FruitModel fruitModel) {
-    list[list.indexWhere((element) => element.code == fruitModel.code)].qty--;
-    list[list.indexWhere((element) => element.code == fruitModel.code)].total();
+    if (list[list.indexWhere((element) => element.code == fruitModel.code)]
+            .qty <=
+        0) {
+      list[list.indexWhere((element) => element.code == fruitModel.code)].qty =
+          0;
+    } else {
+      list[list.indexWhere((element) => element.code == fruitModel.code)].qty--;
+      list[list.indexWhere((element) => element.code == fruitModel.code)]
+          .total();
+    }
+    calculateGrandTotal();
     update();
   }
 
-  delteProductCard(FruitModel fruitModel) {
+  deleteProductCard(FruitModel fruitModel) {
     list.removeWhere((element) => element.code == fruitModel.code);
+    calculateGrandTotal();
     update();
   }
 }
