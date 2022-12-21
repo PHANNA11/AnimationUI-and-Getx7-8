@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fruits/controller/change_fonts_controller.dart';
+import 'package:fruits/screen/finger_prin.dart';
 import 'package:fruits/screen/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:tbib_splash_screen/splash_screen.dart';
@@ -19,7 +20,8 @@ class FlashScreen extends StatelessWidget {
         builder: (context) {
           return Scaffold(
             body: SplashScreenView(
-              navigateWhere: true,
+              //navigateWhere: true,
+              // navigateRoute: FingerPrin(),
               navigateRoute: const MyHomePage(
                 title: 'Fruit Mart ',
               ),

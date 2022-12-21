@@ -1,15 +1,20 @@
+import 'dart:io';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fruits/Auth/local_auth.dart';
 import 'package:fruits/controller/change_fonts_controller.dart';
 import 'package:fruits/controller/product_controller.dart';
 import 'package:fruits/model/fruit_model.dart';
 import 'package:fruits/model/user_model.dart';
 import 'package:fruits/screen/detailproduct_card_screen.dart';
+import 'package:fruits/screen/finger_prin.dart';
 import 'package:fruits/screen/shopping_card_screen.dart';
 import 'package:fruits/screen/user_profile_screen.dart';
 import 'package:get/get.dart';
+import 'package:local_auth/local_auth.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -25,6 +30,22 @@ class _MyHomePageState extends State<MyHomePage> {
   ProductGetXController productGetXController =
       Get.put(ProductGetXController());
   FontsController fontsController = Get.put(FontsController());
+  processAuth() async {
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const FingerPrin()));
+    });
+  }
+
+  //LocalAuthentication auth = LocalAuthentication();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //processAuth();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<FontsController>(
@@ -36,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 return Scaffold(
                     drawer: UserProfile(user: listUserInfo[0]),
                     appBar: AppBar(
+                      centerTitle: true,
                       title: Text(
                         widget.title,
                         style: TextStyle(

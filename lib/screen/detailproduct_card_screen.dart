@@ -137,72 +137,72 @@ class DetailProductCardScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            FloatingActionButton(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 178, 172, 172),
-                              onPressed: () async {
-                                productGetXController
-                                            .list[productGetXController.list
-                                                .indexWhere((element) =>
-                                                    element.code ==
-                                                    fruitModel.code)]
-                                            .qty <=
-                                        0
-                                    ? Fluttertoast.showToast(
-                                        msg: "product_not_have_qty".tr,
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.CENTER,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0)
-                                    : productGetXController
-                                        .decrementQty(fruitModel);
-                              },
-                              heroTag: 'decrement',
-                              child: const Icon(Icons.remove),
-                            ),
-                            productGetXController.list.isEmpty
-                                ? Text(
-                                    '0',
-                                    style: TextStyle(
-                                        fontSize: 26,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: fontsController.fontData),
-                                  )
-                                : productGetXController.list.every((element) =>
-                                        element.code != fruitModel.code)
-                                    ? Text(
-                                        '0',
-                                        style: TextStyle(
-                                            fontSize: 26,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily:
-                                                fontsController.fontData),
-                                      )
-                                    : Text(
-                                        context
-                                            .list[productGetXController.list
-                                                .indexWhere((element) =>
-                                                    element.code ==
-                                                    fruitModel.code)]
-                                            .qty
-                                            .toString(),
-                                        style: TextStyle(
-                                            fontSize: 26,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily:
-                                                fontsController.fontData),
-                                      ),
-                            FloatingActionButton(
-                              heroTag: 'increment',
-                              backgroundColor:
-                                  const Color.fromARGB(255, 178, 172, 172),
-                              onPressed: () async {
-                                productGetXController.incrementQty(fruitModel);
-                              },
-                              child: const Icon(Icons.add),
-                            ),
+                            // FloatingActionButton(
+                            //   backgroundColor:
+                            //       const Color.fromARGB(255, 178, 172, 172),
+                            //   onPressed: () async {
+                            //     productGetXController
+                            //                 .list[productGetXController.list
+                            //                     .indexWhere((element) =>
+                            //                         element.code ==
+                            //                         fruitModel.code)]
+                            //                 .qty <=
+                            //             0
+                            //         ? Fluttertoast.showToast(
+                            //             msg: "product_not_have_qty".tr,
+                            //             toastLength: Toast.LENGTH_SHORT,
+                            //             gravity: ToastGravity.CENTER,
+                            //             timeInSecForIosWeb: 1,
+                            //             backgroundColor: Colors.red,
+                            //             textColor: Colors.white,
+                            //             fontSize: 16.0)
+                            //         : productGetXController
+                            //             .decrementQty(fruitModel);
+                            //   },
+                            //   heroTag: 'decrement',
+                            //   child: const Icon(Icons.remove),
+                            // ),
+                            // productGetXController.list.isEmpty
+                            //     ? Text(
+                            //         '0',
+                            //         style: TextStyle(
+                            //             fontSize: 26,
+                            //             fontWeight: FontWeight.bold,
+                            //             fontFamily: fontsController.fontData),
+                            //       )
+                            //     : productGetXController.list.every((element) =>
+                            //             element.code != fruitModel.code)
+                            //         ? Text(
+                            //             '0',
+                            //             style: TextStyle(
+                            //                 fontSize: 26,
+                            //                 fontWeight: FontWeight.bold,
+                            //                 fontFamily:
+                            //                     fontsController.fontData),
+                            //           )
+                            //         : Text(
+                            //             context
+                            //                 .list[productGetXController.list
+                            //                     .indexWhere((element) =>
+                            //                         element.code ==
+                            //                         fruitModel.code)]
+                            //                 .qty
+                            //                 .toString(),
+                            //             style: TextStyle(
+                            //                 fontSize: 26,
+                            //                 fontWeight: FontWeight.bold,
+                            //                 fontFamily:
+                            //                     fontsController.fontData),
+                            //           ),
+                            // FloatingActionButton(
+                            //   heroTag: 'increment',
+                            //   backgroundColor:
+                            //       const Color.fromARGB(255, 178, 172, 172),
+                            //   onPressed: () async {
+                            //     productGetXController.incrementQty(fruitModel);
+                            //   },
+                            //   child: const Icon(Icons.add),
+                            // ),
                           ],
                         ),
                       ),

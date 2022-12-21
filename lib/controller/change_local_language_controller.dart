@@ -11,7 +11,7 @@ class ChangeLocalControlller extends Translations {
           'hello': 'Hello',
           'dark_mode': 'Dark Mode',
           'light_mode': 'Light Mode',
-          'setting': 'Setting',
+          'setting': 'Settings',
           'dashboard': 'DashBoard',
           'community': 'Community',
           'about': 'About',
@@ -30,7 +30,8 @@ class ChangeLocalControlller extends Translations {
           'select_your_card': 'Select Your Caerd',
           'cancel': 'Cancel',
           'ok': 'ok',
-          'add': 'Add'
+          'add': 'Add',
+          'fonts': 'Fonts',
         },
         'KH': {
           'hello': 'សួស្តី',
@@ -55,7 +56,8 @@ class ChangeLocalControlller extends Translations {
           'select_your_card': 'ជ្រើសរើស​ កាត​ឥណទាន របស់អ្នក',
           'cancel': 'បោះបង់',
           'ok': 'យល់ព្រម',
-          'add': 'បន្ថែម'
+          'add': 'បន្ថែម',
+          'fonts': 'ពុម្ភអក្សរ'
         }
       };
 }
@@ -71,11 +73,9 @@ class SwitchLanguageController extends GetxController {
   }
 
   switchLanguage(bool eng) async {
-    print(eng);
     var prefs = await SharedPreferences.getInstance();
     await prefs.setBool('engCode', eng);
     english = prefs.getBool('engCode') ?? false.obs();
-    print(english);
     update();
   }
 }

@@ -85,55 +85,55 @@ class UserProfile extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  SimpleBuilder(builder: (context) {
-                    return ListTile(
-                      title: themeModeController.isDark
-                          ? Text(
-                              'dark_mode'.tr,
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontFamily: fontsController.fontData),
-                            )
-                          : Text(
-                              'light_mode'.tr,
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontFamily: fontsController.fontData),
-                            ),
-                      trailing: CupertinoSwitch(
-                          value: themeModeController.isDark,
-                          onChanged: themeModeController.changeTheme),
-                    );
-                  }),
-                  const Divider(),
-                  GetBuilder<SwitchLanguageController>(
-                      init: switchLanguageController,
-                      builder: (context) {
-                        return ListTile(
-                            leading: Text(
-                              'ភាសាខ្មែរ',
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontFamily: fontsController.fontData),
-                            ),
-                            title: CupertinoSwitch(
-                                value: switchLanguageController.english,
-                                onChanged: (value) async {
-                                  var localeEng = const Locale('en', 'US');
-                                  var localeKh = const Locale('KH', 'KH');
-                                  switchLanguageController
-                                      .switchLanguage(value);
-                                  Get.updateLocale(
-                                      value ? localeEng : localeKh);
-                                }),
-                            trailing: Text(
-                              'English',
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontFamily: fontsController.fontData),
-                            ));
-                      }),
-                  const Divider(),
+                  // SimpleBuilder(builder: (context) {
+                  //   return ListTile(
+                  //     title: themeModeController.isDark
+                  //         ? Text(
+                  //             'dark_mode'.tr,
+                  //             style: TextStyle(
+                  //                 fontSize: 22,
+                  //                 fontFamily: fontsController.fontData),
+                  //           )
+                  //         : Text(
+                  //             'light_mode'.tr,
+                  //             style: TextStyle(
+                  //                 fontSize: 22,
+                  //                 fontFamily: fontsController.fontData),
+                  //           ),
+                  //     trailing: CupertinoSwitch(
+                  //         value: themeModeController.isDark,
+                  //         onChanged: themeModeController.changeTheme),
+                  //   );
+                  // }),
+                  // const Divider(),
+                  // GetBuilder<SwitchLanguageController>(
+                  //     init: switchLanguageController,
+                  //     builder: (context) {
+                  //       return ListTile(
+                  //           leading: Text(
+                  //             'ភាសាខ្មែរ',
+                  //             style: TextStyle(
+                  //                 fontSize: 22,
+                  //                 fontFamily: fontsController.fontData),
+                  //           ),
+                  //           title: CupertinoSwitch(
+                  //               value: switchLanguageController.english,
+                  //               onChanged: (value) async {
+                  //                 var localeEng = const Locale('en', 'US');
+                  //                 var localeKh = const Locale('KH', 'KH');
+                  //                 switchLanguageController
+                  //                     .switchLanguage(value);
+                  //                 Get.updateLocale(
+                  //                     value ? localeEng : localeKh);
+                  //               }),
+                  //           trailing: Text(
+                  //             'English',
+                  //             style: TextStyle(
+                  //                 fontSize: 22,
+                  //                 fontFamily: fontsController.fontData),
+                  //           ));
+                  //     }),
+                  // const Divider(),
                   InkWell(
                     onTap: () {
                       Navigator.push(

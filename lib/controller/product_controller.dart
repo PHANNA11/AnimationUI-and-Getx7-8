@@ -29,14 +29,14 @@ class ProductGetXController extends GetxController {
     update();
   }
 
-  incrementQty(FruitModel fruitModel) {
+  tincrementQty(FruitModel fruitModel) {
     list[list.indexWhere((element) => element.code == fruitModel.code)].qty++;
     list[list.indexWhere((element) => element.code == fruitModel.code)].total();
     calculateGrandTotal();
     update();
   }
 
-  decrementQty(FruitModel fruitModel) {
+  decrementQy(FruitModel fruitModel) {
     if (list[list.indexWhere((element) => element.code == fruitModel.code)]
             .qty <=
         0) {
